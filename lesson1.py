@@ -1,9 +1,8 @@
 import datetime as dt
-import matplotlib.pyplot as plt
-from matplotlib import style
+
 import pandas as pd
 import yfinance as yf
-
+from matplotlib import style
 
 style.use('ggplot')
 start = dt.datetime(2000, 1, 1)

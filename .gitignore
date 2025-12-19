@@ -3,3 +3,7 @@
 *.csv
 
 bin/
+
+.cursorrules
+
+__pycache__

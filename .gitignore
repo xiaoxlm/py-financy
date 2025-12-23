@@ -7,3 +7,6 @@ bin/
 .cursorrules
 
 __pycache__
+.DS_Store
+*.pickle
+stock_dfs/

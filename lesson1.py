@@ -8,7 +8,7 @@ style.use('ggplot')
 start = dt.datetime(2000, 1, 1)
 end = dt.datetime(2016, 12, 31)
 
-df = yf.download('TSLA', start, end, actions=False, auto_adjust=False)
+df = yf.download('ADBE', start, end, actions=False, auto_adjust=False)
 if isinstance(df.columns, pd.MultiIndex):
     df.columns = df.columns.droplevel('Ticker')
 df.columns.name = None

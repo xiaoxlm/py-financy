@@ -3,7 +3,7 @@ import bs4 as bs
 import pickle
 import requests
 
-
+# automating getting the S&P 500 list
 def save_sp500_tickers() -> list[str]:
     # 添加 User-Agent 头部，避免被维基百科的反爬虫机制拦截（返回403）
     headers = {
@@ -15,6 +15,7 @@ def save_sp500_tickers() -> list[str]:
     tickers: list[str] = []
     for row in table.findAll('tr')[1:]:
         ticker = row.findAll('td')[0].text
+        ticker = ticker.strip()  # 去除 ticker 末尾的换行符和多余空白
         tickers.append(ticker)
 
     with open("sp500tickers.pickle", "wb") as f:
@@ -26,5 +27,3 @@ def save_sp500_tickers() -> list[str]:
 
 
 save_sp500_tickers()
-
-# https://en.wikipedia.org/wiki/List_of_S%26P_500_companies

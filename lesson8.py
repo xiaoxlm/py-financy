@@ -15,6 +15,7 @@ import seaborn as sns
 style.use('ggplot')
 
 
+# S&P500 company correlation table
 def visualize_data():
     # 读取 CSV 时，指定第一列（Date）为索引，并解析为日期类型
     df = pd.read_csv("sp500_joined_closes.csv", index_col=0, parse_dates=True)  # 读取包含所有股票收盘价的 CSV 文件
@@ -43,31 +44,35 @@ def visualize_data():
     plt.tight_layout()  # 自动调整布局，避免元素重叠
     plt.show()  # 显示图表
 
+
 def visualize_data2():
     """Seaborn 热力图 - 每隔 10 个显示一个标签"""
     df = pd.read_csv("sp500_joined_closes.csv", index_col=0, parse_dates=True)
+    df = df.dropna(axis=1, how='all')  # 删除完全没有数据的列（股票）
+    print(f"有效股票数量: {len(df.columns)}")
     df_corr = df.corr()
-    
+
     # 每隔 10 个股票显示一个标签，避免标签过于拥挤
     n = 10
     tick_labels = [label if i % n == 0 else '' for i, label in enumerate(df_corr.columns)]
-    
+
     plt.figure(figsize=(14, 12))
-    sns.heatmap(df_corr, 
-                cmap='RdYlGn',        # 颜色方案：红-黄-绿
-                center=0,              # 颜色中心点设为 0
-                vmin=-1,               # 最小值 -1（完全负相关）
-                vmax=1,                # 最大值 1（完全正相关）
-                square=True,           # 方形单元格
-                linewidths=0,          # 不显示网格线
+    sns.heatmap(df_corr,
+                cmap='RdYlGn',  # 颜色方案：红-黄-绿
+                center=0,  # 颜色中心点设为 0
+                vmin=-1,  # 最小值 -1（完全负相关）
+                vmax=1,  # 最大值 1（完全正相关）
+                square=True,  # 方形单元格
+                linewidths=0,  # 不显示网格线
                 cbar_kws={"shrink": 0.8},  # 调整颜色条大小
-                xticklabels=tick_labels,   # 每隔 n 个显示一个标签
-                yticklabels=tick_labels)   # 每隔 n 个显示一个标签
-    
+                xticklabels=tick_labels,  # 每隔 n 个显示一个标签
+                yticklabels=tick_labels)  # 每隔 n 个显示一个标签
+
     plt.xticks(rotation=90, fontsize=8)
     plt.yticks(rotation=0, fontsize=8)
     plt.title('S&P 500 Stock Correlation Heatmap', fontsize=14, pad=20)
     plt.tight_layout()
     plt.show()
 
-visualize_data()
+
+visualize_data2()

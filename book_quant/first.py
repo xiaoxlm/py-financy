@@ -1,3 +1,7 @@
+#!/opt/anaconda3/bin/python
+
+# 最无脑的交易高抛低吸策略
+
 import sys
 import os
 
@@ -10,7 +14,7 @@ import pandas as pd
 # print(web.__version__)
 
 # start_data = '2020-01-01'
-# end_data = '2020-03-18'
+# end_data = '2020-03-20'
 
 # ticker_num = '601318.ss'
 
@@ -24,16 +28,16 @@ df_data['diff'] = df_data['Close'].diff()
 df_data['Signal'] = np.where(df_data['diff'] > 0, 1, 0)
 
 # print(df_data.head())
-plt.figure(figsize=(10, 5))# 设置画布尺寸 10 * 5
+plt.figure(figsize=(10, 5))  # 设置画布尺寸 10 * 5
 
-df_data['Close'].plot(linewidth=2, color='k', grid=True) # 使用折线图绘制出每天的收盘价
+df_data['Close'].plot(linewidth=2, color='k', grid=True)  # 使用折线图绘制出每天的收盘价
 # 如果当天股价上涨，标出卖出信号，用倒三角表示
 plt.scatter(
     df_data['Close'].loc[df_data['Signal'] == 1].index,
     df_data['Close'].loc[df_data['Signal'] == 1],
-    marker='v',              # 用倒三角表示卖出信号
-    s=80,                    # s=80 表示散点（marker）的面积大小为80，这会影响三角形的视觉尺寸
-    c='g',                   # 绿色，卖出信号
+    marker='v',  # 用倒三角表示卖出信号
+    s=80,  # s=80 表示散点（marker）的面积大小为80，这会影响三角形的视觉尺寸
+    c='g',  # 绿色，卖出信号
     label='Sell'
 )
 
@@ -41,9 +45,9 @@ plt.scatter(
 plt.scatter(
     df_data['Close'].loc[df_data['Signal'] == 0].index,
     df_data['Close'].loc[df_data['Signal'] == 0],
-    marker='^',              # 用正三角表示买入信号
-    s=80,                    # s=80 表示散点（marker）的面积大小为80，这会影响三角形的视觉尺寸
-    c='r',                   # 红色，买入信号
+    marker='^',  # 用正三角表示买入信号
+    s=80,  # s=80 表示散点（marker）的面积大小为80，这会影响三角形的视觉尺寸
+    c='r',  # 红色，买入信号
     label='Buy'
 )
 
